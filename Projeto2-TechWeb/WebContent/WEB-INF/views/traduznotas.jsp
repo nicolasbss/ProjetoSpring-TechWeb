@@ -6,9 +6,11 @@
 <link href="https://fonts.googleapis.com/css?family=Chakra+Petch|Charmonman|Mali|Niramit|Oswald|Roboto" rel="stylesheet">
 
 <head>
-<%@ page import="java.util.*,mvc.model.*,mvc.controller.*" %>
+<%@ page import="java.util.*,mvc.model.*,mvc.controller.*, com.google.cloud.translate.*, com.google.cloud.translate.Translate.TranslateOption, com.google.auth.oauth2.GoogleCredentials, com.google.common.collect.Lists,java.io.FileInputStream" %>
 
-<%	DAO dao = new DAO();
+<%
+	DAO dao = new DAO();
+	Translate translate = TranslateOptions.getDefaultInstance().getService();
 	
 	int id_usuario = (Integer) session.getAttribute("usuario");
 	List<Notas> listaNotas = dao.getListaNotas(id_usuario); %>
@@ -24,9 +26,18 @@
 	
 <div class="flex-container">
 <% for (Notas nota : listaNotas) { 
-	System.out.println(nota.getFont());%>
+	
+	String conteudo_traduzido = nota.getConteudo();
+
+	Translation translation = translate.translate(
+	    	conteudo_traduzido,
+	    	TranslateOption.sourceLanguage("br"),
+	    	TranslateOption.targetLanguage("en"));
+
+
+%>
   <div class="grid-item">
-  	<p id="texto_nota" style="font-family:<%=nota.getFont() %>, serif;"><%=nota.getConteudo()%></p>
+  	<p id="texto_nota" style="font-family:<%=nota.getFont() %>, serif;"><%=translation.getTranslatedText()%></p>
   	<h6 id="data"> Criado em <%=dao.horarioCriacao(nota)%></h6>
   	<div class="button-flex">
   	<div>
@@ -65,11 +76,6 @@
 	<form action="OrdenaNotas">
 		<input type="hidden" name='pessoa_id' value=<%=id_usuario %>>
 		<input id="home" class="button" type = "submit" value="Ordenar: Atualização">
-	</form></div>
-	<div>
-	<form action="TraduzNotas">
-		<input type="hidden" name='pessoa_id' value=<%=id_usuario %>>
-		<input id="home" class="button" type = "submit" value="Traduzir notas para o Ingles">
 	</form></div>
 		<div>
 	<form action="login">

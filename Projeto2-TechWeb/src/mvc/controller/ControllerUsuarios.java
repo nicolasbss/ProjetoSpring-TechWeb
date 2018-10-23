@@ -1,6 +1,7 @@
 package mvc.controller;
 
 
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -8,14 +9,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+
 import mvc.model.DAO;
 import mvc.model.Pessoas;
+
+//TODO(developer): Uncomment these lines.
 
 @Controller
 public class ControllerUsuarios {
 	
 	@RequestMapping("/login")
 	public String inicial() {
+		
 		return "login";
 	}
 	

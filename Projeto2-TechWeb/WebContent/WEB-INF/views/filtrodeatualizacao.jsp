@@ -27,7 +27,7 @@
 	<div class="flex-container">
 		<% for (Notas nota : listaNotas) { %>
 		<div class="grid-item">
-			<p id="texto_nota"><%=nota.getConteudo()%></p>
+			<p id="texto_nota" style="font-family:<%=nota.getFont() %>, serif;"><%=nota.getConteudo()%></p>
 			<h6 id="data"> Criado em <%=dao.horarioCriacao(nota)%></h6>
   			<div class="button-flex">
   			<div>

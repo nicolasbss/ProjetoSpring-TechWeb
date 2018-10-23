@@ -18,7 +18,7 @@
 		<% for (Notas nota : listaNotas) {
 		if (nota.getConteudo().contains(palavra_filtrada)) { %>
 		<div class="grid-item">
-			<p id="texto_nota"><%=nota.getConteudo()%></p>
+			<p id="texto_nota" style="font-family:<%=nota.getFont() %>, serif;"><%=nota.getConteudo()%></p>
 			<h6 id="data"> Criado em <%=dao.horarioCriacao(nota)%></h6>
   			<div class="button-flex">
   			<div>

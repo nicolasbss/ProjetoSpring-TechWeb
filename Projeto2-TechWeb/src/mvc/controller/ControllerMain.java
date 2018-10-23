@@ -15,6 +15,17 @@ import mvc.model.Notas;
 @Controller
 public class ControllerMain {
 	
+	
+	@RequestMapping("/TraduzNotas")
+	public String traduzNotas(HttpSession session,
+			@RequestParam(value = "pessoa_id") String pessoa_id){
+		
+		session.setAttribute("usuario", Integer.valueOf(pessoa_id));
+	
+	return "traduznotas";
+		
+	}
+	
 	@RequestMapping("/CriaNotas")
 	public String redirectCriaNotas(HttpSession session,
 			@RequestParam(value = "pessoa_id") String id_string) {
@@ -27,7 +38,8 @@ public class ControllerMain {
 	public String criaNotas(HttpSession session,
 			@RequestParam(value = "tipo") String tipo,
 			@RequestParam(value = "conteudo") String conteudo,
-			@RequestParam(value = "pessoa_id") String pessoa_id) {
+			@RequestParam(value = "pessoa_id") String pessoa_id,
+			@RequestParam(value = "fonte") String fonte) {
 		
 		DAO dao = new DAO();
 		Notas nota = new Notas();
@@ -36,6 +48,7 @@ public class ControllerMain {
 		nota.setDateTime();
 		nota.setConteudo(conteudo);
 		nota.setPessoa_id(Integer.valueOf(pessoa_id));
+		nota.setFont(fonte);
 		
 		dao.adicionaNota(nota);
 		
@@ -75,7 +88,8 @@ public class ControllerMain {
 			@RequestParam(value = "id") String id,
 			@RequestParam(value = "pessoa_id") String pessoa_id,
 			@RequestParam(value = "tipo") String tipo,
-			@RequestParam(value = "conteudo") String conteudo) {
+			@RequestParam(value = "conteudo") String conteudo,
+			@RequestParam(value = "fonte") String fonte) {
 		
 		DAO dao = new DAO();
 		Notas nota = new Notas();
@@ -84,6 +98,7 @@ public class ControllerMain {
 		nota.setConteudo(conteudo);
 		nota.setDateTime();
 		nota.setDataAtualizada(nota.getDateTime());
+		nota.setFont(fonte);
 		dao.alteraNota(nota);
 	
 		dao.close();
@@ -127,6 +142,5 @@ public class ControllerMain {
 		
 		return "index";
 	}
-	
-	
+		
 }

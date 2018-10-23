@@ -20,6 +20,7 @@
     String text = dao.getNota(id);%>
     <h3>Atualizar Nota</h3>
     Tipo: <select name='tipo'><option value='texto'>Texto </option></select><br><br>
+   	Fonte:<select name='fonte'><option value='Roboto'> Roboto </option><option value='Mali'> Mali </option><option value='Niramit'> Niramit </option><option value='Oswald'> Oswald </option><option value='Chakra Petch'> Chakra Petch </option><option value='Charmonman'> Charmonman </option></select><br><br>
       <input type="text" name="conteudo" value='<%=text%>'/>
       <input type ="hidden" name = "id" value= <%=id %>>
       <input type ="hidden" name = "pessoa_id" value=<%=pessoa_id %>>

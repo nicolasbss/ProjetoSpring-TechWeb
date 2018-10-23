@@ -66,7 +66,8 @@ public class DAO {
 				nota.setId(rs.getInt("id"));
 				nota.setTipo(rs.getString("tipo"));
 				nota.setConteudo(rs.getString("conteudo"));
-				nota.setPessoa_id(rs.getInt("pessoa_id"));				
+				nota.setPessoa_id(rs.getInt("pessoa_id"));
+				nota.setFont(rs.getString("font"));
 				notas.add(nota);
 			}
 		} catch (SQLException e) {
@@ -104,7 +105,8 @@ public class DAO {
 				nota.setId(rs.getInt("id"));
 				nota.setTipo(rs.getString("tipo"));
 				nota.setConteudo(rs.getString("conteudo"));
-				nota.setPessoa_id(rs.getInt("pessoa_id"));				
+				nota.setPessoa_id(rs.getInt("pessoa_id"));	
+				nota.setFont(rs.getString("font"));
 				notas.add(nota);
 			}
 		} catch (SQLException e) {
@@ -125,7 +127,7 @@ public class DAO {
 	}
 	
 	public void adicionaNota(Notas nota) {
-		String sql = "INSERT INTO Notas" + "(tipo, data, conteudo, pessoa_id) values(?,?,?,?)";
+		String sql = "INSERT INTO Notas" + "(tipo, data, conteudo, pessoa_id, font) values(?,?,?,?,?)";
 		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
@@ -133,6 +135,7 @@ public class DAO {
 			stmt.setString(2, nota.getDateTime());
 			stmt.setString(3,nota.getConteudo());
 			stmt.setInt(4, nota.getPessoa_id());
+			stmt.setString(5, nota.getFont());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -159,14 +162,15 @@ public class DAO {
 	
 	public void alteraNota(Notas nota) {
 		String sql = "UPDATE Notas SET " +
-				 "tipo=?, conteudo=?, data_atualizada=? WHERE id=?";
+				 "tipo=?, conteudo=?, data_atualizada=?, font=? WHERE id=?";
 				PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, nota.getTipo());
 			stmt.setString(2, nota.getConteudo());
 			stmt.setString(3, nota.getDataAtualizada());
-			stmt.setInt(4, nota.getId());			
+			stmt.setString(4, nota.getFont());
+			stmt.setInt(5, nota.getId());			
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
